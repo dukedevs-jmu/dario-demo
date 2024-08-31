@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1uq28rv248ge"]
+
+[ext_resource type="Script" path="res://Objects/Interactables/movingplatform.gd" id="1_dxvn1"]
+[ext_resource type="Texture2D" uid="uid://b171pyitqoq88" path="res://Graphics/movingplatform.png" id="1_qm5lw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0kl2"]
+size = Vector2(48, 6)
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+editor_description = "Moving platform that the player and enemies can walk on. Uses AnimationPlayer to move it by keyframing position."
+script = ExtResource("1_dxvn1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_r0kl2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 3)
+texture = ExtResource("1_qm5lw")

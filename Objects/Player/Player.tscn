@@ -1,0 +1,121 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwfnjlwitt08r"]
+
+[ext_resource type="Script" path="res://Objects/Player/Player.gd" id="1_0unc8"]
+[ext_resource type="Texture2D" uid="uid://cdwx3asvp377o" path="res://Graphics/dario.png" id="2_2ye6b"]
+[ext_resource type="AudioStream" uid="uid://ca3hggvc2bsj1" path="res://Audio/jump.wav" id="3_1wtv6"]
+[ext_resource type="AudioStream" uid="uid://dnwcyyv1k7bfn" path="res://Audio/crush.wav" id="5_6luc7"]
+[ext_resource type="PackedScene" uid="uid://dk17eo5551hdb" path="res://Objects/Player/UI.tscn" id="6_en5n1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0xau"]
+size = Vector2(10, 14)
+
+[sub_resource type="Animation" id="Animation_ec17l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7cxxj"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_13th6"]
+resource_name = "jump"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_k7r0t"]
+resource_name = "run"
+length = 0.3
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2vmc5"]
+_data = {
+"RESET": SubResource("Animation_ec17l"),
+"idle": SubResource("Animation_7cxxj"),
+"jump": SubResource("Animation_13th6"),
+"run": SubResource("Animation_k7r0t")
+}
+
+[node name="Player" type="CharacterBody2D"]
+editor_description = "A funny little guy. Can run and jump!"
+collision_layer = 2
+script = ExtResource("1_0unc8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_y0xau")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = -132
+limit_bottom = 48
+editor_draw_limits = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+texture = ExtResource("2_2ye6b")
+hframes = 14
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+editor_description = "Plays animations! (duh)
+
+Allows you to keyframe a variety of things, such as node properties (in this case, sprite frames), exported script variables, function calls, sound effects, etc."
+libraries = {
+"": SubResource("AnimationLibrary_2vmc5")
+}
+autoplay = "idle"
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1wtv6")
+
+[node name="Crush" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6luc7")
+max_polyphony = 2
+
+[node name="UI" parent="." instance=ExtResource("6_en5n1")]

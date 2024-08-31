@@ -1,0 +1,154 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbo2h0euosbx2"]
+
+[ext_resource type="Script" path="res://Objects/Enemies/Robot.gd" id="1_1axbs"]
+[ext_resource type="Texture2D" uid="uid://qb55dgbd5bw1" path="res://Graphics/starship.png" id="2_af8qt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imakt"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ac0u0"]
+size = Vector2(12, 10)
+
+[sub_resource type="Animation" id="Animation_nb3fg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_eygr3"]
+resource_name = "die"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DetectPlayer:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_64701"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DetectPlayer:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u7wpb"]
+_data = {
+"RESET": SubResource("Animation_nb3fg"),
+"die": SubResource("Animation_eygr3"),
+"idle": SubResource("Animation_64701")
+}
+
+[node name="Robot" type="CharacterBody2D"]
+editor_description = "A little enemy to mess around with. Jump on it to kill it!
+
+Try enabling \"Visible Collision Shapes\" under the Debug tab to get a better understanding of how the basic navigation works!"
+collision_layer = 4
+script = ExtResource("1_1axbs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_imakt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_af8qt")
+hframes = 2
+
+[node name="DetectFloor" type="RayCast2D" parent="Sprite2D"]
+position = Vector2(7, 8)
+target_position = Vector2(0, 4)
+
+[node name="DetectWall" type="RayCast2D" parent="Sprite2D"]
+position = Vector2(6, 3)
+target_position = Vector2(4, 0)
+
+[node name="DetectPlayer" type="Area2D" parent="."]
+editor_description = "Check if colliding with player. Uses collision layers to only check for a specific collision!"
+position = Vector2(0, -5)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectPlayer"]
+shape = SubResource("RectangleShape2D_ac0u0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u7wpb")
+}
+autoplay = "idle"
+
+[connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

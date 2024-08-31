@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk17eo5551hdb"]
+
+[ext_resource type="FontFile" uid="uid://cgbx7vdpa85ah" path="res://Peepo.ttf" id="1_dc54l"]
+[ext_resource type="Script" path="res://Objects/Player/ui.gd" id="1_l6xs6"]
+[ext_resource type="AudioStream" uid="uid://da5h38huce4a4" path="res://Audio/pickup.wav" id="2_q20j1"]
+
+[sub_resource type="Theme" id="Theme_m4gfc"]
+default_font = ExtResource("1_dc54l")
+
+[node name="UI" type="CanvasLayer"]
+editor_description = "CanvasLayer nodes always render over everything else, and stay locked to the screen!"
+script = ExtResource("1_l6xs6")
+
+[node name="Control" type="Control" parent="."]
+editor_description = "Control nodes (green) have properties that make them ideal for creating nice looking and adaptable user interfaces.
+
+This control node is providing the screen size to its child, \"Score.\""
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="Control"]
+editor_description = "Shows the score as text on screen. Text is changed by Player.gd!"
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -54.0
+offset_right = -8.0
+offset_bottom = 27.0
+grow_horizontal = 0
+theme = SubResource("Theme_m4gfc")
+text = "0"
+horizontal_alignment = 2
+
+[node name="Pickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_q20j1")
+max_polyphony = 3

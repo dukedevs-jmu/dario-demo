@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://1mupd4eng6a8"]
+
+[ext_resource type="Script" path="res://Objects/Interactables/spring.gd" id="1_ioouo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6atwi"]
+size = Vector2(16, 16)
+
+[node name="Spring" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_ioouo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_6atwi")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

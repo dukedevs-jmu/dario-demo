@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8y5awlhg23do"]
+
+[ext_resource type="PackedScene" uid="uid://bwfnjlwitt08r" path="res://Objects/Player/Player.tscn" id="1_db2x8"]
+[ext_resource type="Script" path="res://Levels/Level.gd" id="1_f271q"]
+[ext_resource type="Texture2D" uid="uid://dmryk4j52eyc2" path="res://Graphics/dario_tileset.png" id="1_q0sit"]
+[ext_resource type="PackedScene" uid="uid://dk17eo5551hdb" path="res://Objects/Player/UI.tscn" id="4_23wtx"]
+[ext_resource type="AudioStream" uid="uid://bdck3vqlcfwk" path="res://Audio/fightsong_chiptune.ogg" id="5_srg80"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rpg6p"]
+texture = ExtResource("1_q0sit")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0 = 0
+3:3/0 = 0
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0 = 0
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:5/0 = 0
+2:5/0 = 0
+1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_n7vl8"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_rpg6p")
+
+[node name="Level" type="Node2D"]
+editor_description = "Basic level implementation. Includes TileMap, player, coins, enemies, and music."
+script = ExtResource("1_f271q")
+metadata/_edit_lock_ = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+editor_description = "Go to the \"TileMap\" tab at the bottom to draw tiles!
+
+Use the \"TileSet\" tab to edit tiles!
+You can add your own tiles by importing your own images, or by simply adding on to dario_tileset.png!"
+use_parent_material = true
+tile_set = SubResource("TileSet_n7vl8")
+
+[node name="Player" parent="." instance=ExtResource("1_db2x8")]
+position = Vector2(64, 0)
+
+[node name="Coins" type="Node" parent="."]
+editor_description = "Put all coins under this node for organization! 
+(Like a folder!)"
+
+[node name="Enemies" type="Node" parent="."]
+editor_description = "Put all enemies under this node for organization! 
+(Like a folder!)"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+editor_description = "Try messing with the pitch scale. This is useful for reusing sounds.
+
+You can change the music by dragging a sound into \"Stream\" from the FileSystem explorer on the left."
+stream = ExtResource("5_srg80")
+autoplay = true
+
+[node name="UI" parent="." instance=ExtResource("4_23wtx")]

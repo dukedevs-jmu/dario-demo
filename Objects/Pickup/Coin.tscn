@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmg3xd2cipgg0"]
+
+[ext_resource type="Texture2D" uid="uid://cr6hddt6nw2mf" path="res://Graphics/coinbone.png" id="1_btb5c"]
+[ext_resource type="Script" path="res://Objects/Pickup/Coin.gd" id="1_cc7c1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_er4x1"]
+size = Vector2(10, 10)
+
+[sub_resource type="Animation" id="Animation_tgmmi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_en7jk"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3wbx6"]
+_data = {
+"RESET": SubResource("Animation_tgmmi"),
+"idle": SubResource("Animation_en7jk")
+}
+
+[node name="Coin" type="Area2D"]
+editor_description = "Something of value perhaps? Adds score when picked up by the player.
+
+Emits a \"signal\" to the script when something collides with this area. You can see a node's signals in the \"Node\" menu next to the Inspector tab."
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_cc7c1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_btb5c")
+hframes = 3
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_er4x1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3wbx6")
+}
+autoplay = "idle"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
