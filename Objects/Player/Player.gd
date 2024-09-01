@@ -57,6 +57,7 @@ func update_reset_position(pos):
 # Send player to start if they get hurt.
 func reset_player():
 	global_position = reset_position
+	velocity = Vector2(0, 0)
 	
 # Bounce player up when landing on an enemy.
 func bounce():
