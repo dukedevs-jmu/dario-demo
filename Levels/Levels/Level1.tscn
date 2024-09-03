@@ -130,3 +130,6 @@ position = Vector2(1984, -48)
 [node name="LevelExit" parent="." index="3" instance=ExtResource("4_tbnh8")]
 position = Vector2(2280, 0)
 next_level = "res://Levels/Levels/Level2.tscn"
+
+[node name="Player" parent="." index="4"]
+position = Vector2(2157, 0)

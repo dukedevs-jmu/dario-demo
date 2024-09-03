@@ -7,6 +7,10 @@ extends Node2D
 func _on_area_2d_body_entered(body):
 	body.set_physics_process(false)
 	body.hide()
+	$Jingle.play()
+	
+	# Stop music (causes error if music node is missing)
+	get_parent().get_node("Music").stop()
 	
 	# Exit timer
 	$ExitTimer.start()

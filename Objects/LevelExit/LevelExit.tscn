@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1pq5uajcp0x3"]
+[gd_scene load_steps=5 format=3 uid="uid://b1pq5uajcp0x3"]
 
 [ext_resource type="Script" path="res://Objects/LevelExit/LevelExit.gd" id="1_26tve"]
 [ext_resource type="Texture2D" uid="uid://jced1evt3ucs" path="res://Graphics/wilsonhall.png" id="1_mh7j4"]
+[ext_resource type="AudioStream" uid="uid://dq4btif44yx8o" path="res://Audio/levelfinish.wav" id="3_7c2ng"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g2r6"]
 size = Vector2(16, 16)
@@ -25,8 +26,11 @@ position = Vector2(0, -54)
 texture = ExtResource("1_mh7j4")
 
 [node name="ExitTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.5
 one_shot = true
+
+[node name="Jingle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7c2ng")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="ExitTimer" to="." method="_on_exit_timer_timeout"]
