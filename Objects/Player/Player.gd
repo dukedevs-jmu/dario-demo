@@ -12,6 +12,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumped = false
 var reset_position = Vector2(0, 64)
 
+var score_manager
+
 # Activates the second this scene is loaded in game.
 func _ready():
 	# Set restart point
@@ -58,6 +60,7 @@ func update_reset_position(pos):
 func reset_player():
 	global_position = reset_position
 	velocity = Vector2(0, 0)
+	score_manager.add_score(-200)
 	
 # Bounce player up when landing on an enemy.
 func bounce():

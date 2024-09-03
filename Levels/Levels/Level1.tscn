@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://pqrl4h0nsb3c"]
+[gd_scene load_steps=5 format=4 uid="uid://pqrl4h0nsb3c"]
 
 [ext_resource type="PackedScene" uid="uid://c8y5awlhg23do" path="res://Levels/LevelBase.tscn" id="1_dnigw"]
 [ext_resource type="PackedScene" uid="uid://dmg3xd2cipgg0" path="res://Objects/Pickup/Coin.tscn" id="2_j2bdf"]
 [ext_resource type="PackedScene" uid="uid://bbo2h0euosbx2" path="res://Objects/Enemies/Robot.tscn" id="3_d3s2r"]
+[ext_resource type="PackedScene" uid="uid://b1pq5uajcp0x3" path="res://Objects/LevelExit/LevelExit.tscn" id="4_tbnh8"]
 
 [node name="Level" instance=ExtResource("1_dnigw")]
 
@@ -125,3 +126,7 @@ position = Vector2(1776, -48)
 
 [node name="Robot22" parent="Enemies" index="12" instance=ExtResource("3_d3s2r")]
 position = Vector2(1984, -48)
+
+[node name="LevelExit" parent="." index="3" instance=ExtResource("4_tbnh8")]
+position = Vector2(2280, 0)
+next_level = "res://Levels/Levels/Level2.tscn"

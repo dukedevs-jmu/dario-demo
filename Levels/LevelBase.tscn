@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Levels/Level.gd" id="1_f271q"]
 [ext_resource type="Texture2D" uid="uid://dmryk4j52eyc2" path="res://Graphics/dario_tileset.png" id="1_q0sit"]
 [ext_resource type="PackedScene" uid="uid://dk17eo5551hdb" path="res://Objects/Player/UI.tscn" id="4_23wtx"]
-[ext_resource type="AudioStream" uid="uid://bdck3vqlcfwk" path="res://Audio/fightsong_chiptune.ogg" id="5_srg80"]
+[ext_resource type="AudioStream" uid="uid://bdck3vqlcfwk" path="res://Audio/Music/fightsong_chiptune.ogg" id="5_srg80"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rpg6p"]
 texture = ExtResource("1_q0sit")
@@ -55,7 +55,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_rpg6p")
 
 [node name="Level" type="Node2D"]
-editor_description = "Basic level implementation. Includes TileMap, player, coins, enemies, and music."
+editor_description = "Basic level implementation. Includes TileMap, player, coins, enemies, and music.
+
+Nodes lower in the SceneTree (normally on left) will show in front of other nodes."
 script = ExtResource("1_f271q")
 metadata/_edit_lock_ = true
 
@@ -67,9 +69,6 @@ You can add your own tiles by importing your own images, or by simply adding on 
 use_parent_material = true
 tile_set = SubResource("TileSet_n7vl8")
 
-[node name="Player" parent="." instance=ExtResource("1_db2x8")]
-position = Vector2(64, 0)
-
 [node name="Coins" type="Node" parent="."]
 editor_description = "Put all coins under this node for organization! 
 (Like a folder!)"
@@ -77,6 +76,9 @@ editor_description = "Put all coins under this node for organization!
 [node name="Enemies" type="Node" parent="."]
 editor_description = "Put all enemies under this node for organization! 
 (Like a folder!)"
+
+[node name="Player" parent="." instance=ExtResource("1_db2x8")]
+position = Vector2(64, 0)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 editor_description = "Try messing with the pitch scale. This is useful for reusing sounds.

@@ -1,9 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://1mupd4eng6a8"]
+[gd_scene load_steps=8 format=3 uid="uid://1mupd4eng6a8"]
 
-[ext_resource type="Script" path="res://Objects/Interactables/spring.gd" id="1_ioouo"]
+[ext_resource type="Script" path="res://Objects/Interactables/Spring.gd" id="1_ioouo"]
+[ext_resource type="Texture2D" uid="uid://dt7hm6qn131ej" path="res://Graphics/spring.png" id="2_flap3"]
+[ext_resource type="AudioStream" uid="uid://dnwcyyv1k7bfn" path="res://Audio/crush.wav" id="3_3m2l3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6atwi"]
 size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_6l4bt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_s15kd"]
+resource_name = "activate"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 0, 2, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wxw1"]
+_data = {
+"RESET": SubResource("Animation_6l4bt"),
+"activate": SubResource("Animation_s15kd")
+}
 
 [node name="Spring" type="Area2D"]
 collision_layer = 0
@@ -11,14 +51,21 @@ collision_mask = 2
 script = ExtResource("1_ioouo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 8.0
+position = Vector2(0, -16)
+texture = ExtResource("2_flap3")
+hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_6atwi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8wxw1")
+}
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3m2l3")
+pitch_scale = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

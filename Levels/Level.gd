@@ -7,7 +7,7 @@ func _ready():
 	RenderingServer.set_default_clear_color(sky_color)
 	
 	
-	# Provide what manages the score to coins and enemies.
+	# Provide what manages the score to coins, enemies, and player.
 	# Make sure to put new coins and enemies under their proper nodes!
 	
 	for coin in $Coins.get_children():
@@ -15,3 +15,5 @@ func _ready():
 	
 	for enemy in $Enemies.get_children():
 		enemy.score_manager = $UI
+	
+	$Player.score_manager = $UI

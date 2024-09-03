@@ -10,5 +10,5 @@ func _on_detect_player_body_entered(body):
 		
 		# In this case, "body" is the player.
 		body.update_reset_position(global_position)
-		
+		$AnimationPlayer.play("activate")
 		$Sound.play()

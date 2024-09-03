@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cdej2pdv86v1u"
+path="res://.godot/imported/dario happy.ogg-b15008ffba128f179f599bd1fc9f3076.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Music/dario happy.ogg"
+dest_files=["res://.godot/imported/dario happy.ogg-b15008ffba128f179f599bd1fc9f3076.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
